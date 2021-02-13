@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Froala Design Blocks - Contacts</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link type="text/css" rel="stylesheet" href="css/froala_blocks.css">
+    <style>
+      .fdb-block {
+        border-bottom: 1px solid var(--light);
+      }
+    </style>
+  </head>
+  <body><style>
+  #navigator {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  #navigator .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  }
+
+  @media (max-width: 720px) {
+    #navigator {
+      border-bottom: 1px solid #ccc;
+    }
+  }
+
+  #navigator a {
+    font-size: 14px;
+  }
+
+  #navigator+section {
+    padding: 250px 0;
+  }
+
+</style>
+
+
+<script>
+  var page = window.location.pathname.split('/')
+  page = page[page.length - 1]
+
+  var nav = document.querySelector('a[href="' + page + '"]')
+  if (nav) {
+    nav.classList.add('active')
+  }
+
+</script>
+
+<!-- Contacts 5 -->
+<section class="fdb-block pt-0">
+  <div class="container">
+    <div class="row text-center justify-content-center pt-5">
+      <div class="col-12 col-md-7">
+        <h1>Contact Us</h1>
+      </div>
+    </div>
+    <form action="/" method="POST" id="form">
+    <div class="row justify-content-center pt-4">
+      <div class="col-12 col-md-7">
+        <form>
+          <div class="row">
+            <div class="col">
+              <input type="email" class="form-control" name="email" placeholder="Email">
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+              <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+          </div>
+
+          <!-- <div class="row mt-4"> 
+            <div class="col">
+              <textarea class="form-control" name="message" rows="3" placeholder="How can we help?"></textarea>
+            </div>
+          </div> -->
+          <div class="row mt-4">
+            <div class="col text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </form>
+    <div class="row-100"></div>
+  </div>
+</section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    //utility function
+function getFormData(data) {
+   var unindexed_array = data;
+   var indexed_array = {};
+
+   $.map(unindexed_array, function(n, i) {
+    indexed_array[n['name']] = n['value'];
+   });
+
+   return indexed_array;
+}
+    $(document).ready(() => {
+      $('#form').submit((e) => {
+          debugger;
+        e.preventDefault();
+        $.ajax({
+          url: '/',
+          type: 'post',
+          dataType: 'json',
+          contentType: 'application/json',
+          //data: form.serialize(),
+          //data: JSON.stringify($('#form')),
+          
+          data: JSON.stringify(getFormData($('#form').serializeArray())),
+          success: (response) => {
+            console.log('successfully got response');
+            console.log(response);
+          }
+        });
+      });
+    });
+  </script>
+  </body>
+</html>
